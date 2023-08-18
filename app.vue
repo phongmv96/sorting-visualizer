@@ -1,11 +1,13 @@
 <template>
   <div class="header-container">
-    <v-btn @click="generateNewArray">Generate New Array</v-btn>
-    <v-btn>Bubble Sort</v-btn>
-    <v-btn>Sort</v-btn>
+    <v-btn class="bg-primary" @click="generateNewArray">Generate New Array</v-btn>
+    <v-btn @click="bubbleSort">Bubble Sort</v-btn>
   </div>
   <div class="body-container">
-    <div v-for="row in rows" :key="row.height" class="row mx-2" :style="{ height: row.height * 3 + 'px'}"></div>
+    <div v-for="(col,index) in cols" :key="index" class="col mx-1" :style="{
+      height: col.height  + 'px'}">
+      <div class="col-number">{{col.height}}</div>
+    </div>
   </div>
 </template>
 <script lang="ts" setup >
@@ -15,25 +17,41 @@ enum STATUS_ROW  {
   NONE = 'NONE'
 }
 
-interface IRow {
+interface ICol {
   status: STATUS_ROW
   height: number
 }
-const rows = ref<IRow[]>([])
-const rowsLength  = ref<number>(10)
+const cols = ref<ICol[]>([])
+const rowsLength  = ref<number>(15)
+
 const generateNewArray = () => {
-  const newRows:IRow[] = []
+  const newRows:ICol[] = []
   for (let i = 0; i < rowsLength.value; i++) {
-      const rndInt = Math.floor(Math.random() * 100) + 10
-      const newRow: IRow = {
+      const rndInt = Math.floor(Math.random() * 250) + 50
+      const newRow: ICol = {
         status: STATUS_ROW.NONE,
         height: rndInt
       }
       newRows.push(newRow)
   }
-  rows.value = [...newRows]
+  cols.value = [...newRows]
 }
 
+const bubbleSort = () => {
+  let temp: ICol = {
+    height: 0,
+    status: STATUS_ROW.NONE
+  }
+  for (let i = 0; i < cols.value.length - 1; i++) {
+    for (let j = 0; j < cols.value.length - i - 1; j++) {
+        if(cols.value[j].height > cols.value[j+1].height){
+          temp = cols.value[j]
+          cols.value[j] = cols.value[j+1]
+          cols.value[j+1] = temp
+        }
+    }
+  }
+}
 
 </script>
 <style lang="scss" scoped>
@@ -49,8 +67,16 @@ const generateNewArray = () => {
   background-color: cornflowerblue;
   height: 80px;
 }
-.row{
+.col{
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 30px;
   background-color: blue;
+}
+
+.col-number{
+  color: aliceblue;
+  font-weight: 700;
 }
 </style>
