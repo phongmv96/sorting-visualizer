@@ -1,73 +1,86 @@
 <template>
   <div class="header-container">
-    <v-btn class="bg-primary" @click="generateNewArray">Generate New Array</v-btn>
+    <v-btn class="bg-primary" @click="generateNewArray"
+      >Generate New Array</v-btn
+    >
     <v-btn @click="bubbleSort">Bubble Sort</v-btn>
   </div>
   <div class="body-container">
-    <div v-for="(col,index) in cols" :key="index" class="col mx-1" :style="{
-      height: col.height  + 'px'}">
-      <div class="col-number">{{col.height}}</div>
+    <div
+      v-for="(col, index) in cols"
+      :key="index"
+      class="col mx-1"
+      :style="{
+        backgroundColor: getBackgroundColor(col),
+        height: col.height + 'px',
+      }"
+    >
+      <div class="col-number">{{ col.height }}</div>
     </div>
   </div>
 </template>
-<script lang="ts" setup >
-enum STATUS_ROW  {
-  PROCESS = 'PROCESS',
-  DONE = 'DONE',
-  NONE = 'NONE'
-}
+<script lang="ts" setup>
+import { ICol, STATUS_ROW } from "~/types";
 
-interface ICol {
-  status: STATUS_ROW
-  height: number
-}
-const cols = ref<ICol[]>([])
-const rowsLength  = ref<number>(15)
+const cols = ref<ICol[]>([]);
+const rowsLength = ref<number>(15);
 
-const generateNewArray = () => {
-  const newRows:ICol[] = []
-  for (let i = 0; i < rowsLength.value; i++) {
-      const rndInt = Math.floor(Math.random() * 250) + 50
-      const newRow: ICol = {
-        status: STATUS_ROW.NONE,
-        height: rndInt
-      }
-      newRows.push(newRow)
+const getBackgroundColor = (col: ICol) => {
+  switch (col.status) {
+    case STATUS_ROW.DEFAULT:
+      return "blue";
+    case STATUS_ROW.PROCESS:
+      return "green";
+    case STATUS_ROW.IS_SWAP:
+      return "red";
+    case STATUS_ROW.DONE:
+      return "purple";
   }
-  cols.value = [...newRows]
-}
-
+};
+const generateNewArray = () => {
+  const newRows: ICol[] = [];
+  for (let i = 0; i < rowsLength.value; i++) {
+    const rndInt = Math.floor(Math.random() * 250) + 50;
+    const newRow: ICol = {
+      status: STATUS_ROW.DEFAULT,
+      height: rndInt,
+    };
+    newRows.push(newRow);
+  }
+  cols.value = [...newRows];
+};
 const bubbleSort = () => {
   let temp: ICol = {
     height: 0,
-    status: STATUS_ROW.NONE
-  }
+    status: STATUS_ROW.DEFAULT,
+  };
   for (let i = 0; i < cols.value.length - 1; i++) {
     for (let j = 0; j < cols.value.length - i - 1; j++) {
-        if(cols.value[j].height > cols.value[j+1].height){
-          temp = cols.value[j]
-          cols.value[j] = cols.value[j+1]
-          cols.value[j+1] = temp
-        }
+      const currentValue = cols.value[j];
+      const nextValue = cols.value[j + 1];
+      if (currentValue.height > nextValue.height) {
+        temp = cols.value[j];
+        cols.value[j] = cols.value[j + 1];
+        cols.value[j + 1] = temp;
+      }
     }
   }
-}
-
+};
 </script>
 <style lang="scss" scoped>
-.body-container{
+.body-container {
   display: flex;
   justify-content: center;
 }
 
-.header-container{
+.header-container {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
   background-color: cornflowerblue;
   height: 80px;
 }
-.col{
+.col {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -75,7 +88,7 @@ const bubbleSort = () => {
   background-color: blue;
 }
 
-.col-number{
+.col-number {
   color: aliceblue;
   font-weight: 700;
 }
