@@ -1,11 +1,14 @@
 <script setup lang="ts">
+import {ICol} from "~/types";
+
+defineProps<{
+  col: ICol
+}>()
 
 </script>
 
 <template>
-  <div class="col mx-1">
-    <div class="col-number">100</div>
-  </div>
+  <div class="col" :style="{height: col?.height + 'px'}"></div>
 </template>
 
 <style scoped lang="scss">
@@ -14,12 +17,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 30px;
-  background-color: blue;
+  width: 10px;
+  background-color: rgba(245, 124, 0);
+  margin-right: 3px;
 }
 
-.col-number {
-  color: aliceblue;
-  font-weight: 700;
-}
 </style>

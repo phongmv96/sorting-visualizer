@@ -1,25 +1,9 @@
-import { ICol, STATUS_ROW } from "~/types";
+import { ICol, STATUS } from "~/types";
 
-const cols = ref<ICol[]>([]);
-const rowsLength = ref<number>(15);
-
-
-const generateNewArray = () => {
-    const newRows: ICol[] = [];
-    for (let i = 0; i < rowsLength.value; i++) {
-        const rndInt = Math.floor(Math.random() * 250) + 50;
-        const newRow: ICol = {
-            status: STATUS_ROW.DEFAULT,
-            height: rndInt,
-        };
-        newRows.push(newRow);
-    }
-    cols.value = [...newRows];
-};
 const bubbleSort = () => {
     let temp: ICol = {
         height: 0,
-        status: STATUS_ROW.DEFAULT,
+        status: STATUS.DEFAULT,
     };
     for (let i = 0; i < cols.value.length - 1; i++) {
         for (let j = 0; j < cols.value.length - i - 1; j++) {

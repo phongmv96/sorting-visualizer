@@ -1,10 +1,15 @@
 <script setup lang="ts">
+import {useColsStore} from "~/stores/useColsStore";
+
+const colsStore = useColsStore()
+
+
+
 
 </script>
-
 <template>
   <div class="header-container">
-    <v-btn  @click="generateNewArray">Generate New Array</v-btn>
+    <v-btn  @click="colsStore.generateNewCols()">Generate New Array</v-btn>
     <div class="select">
       <v-select
           label="Select"
@@ -14,7 +19,6 @@
     <v-btn color="orange-darken-2"><v-icon icon="mdi-checkbox-marked-circle"></v-icon> Sort</v-btn>
   </div>
 </template>
-
 <style scoped lang="scss">
 .header-container {
   display: flex;
