@@ -1,8 +1,11 @@
 import { defineStore } from "pinia";
-import {ICol, STATUS} from "~/types";
+import { ICol, STATUS } from "~/types/col";
+import { useBubbleSort } from "~/composables/useBubbleSort";
+import { SORT_TYPE } from "~/types/sort";
+
 export const useColsStore = defineStore("cols", () => {
   const cols = ref<ICol[]>([]);
-  const rowsLength = ref<number>(40)
+  const rowsLength = ref<number>(40);
   const generateNewCols = () => {
     const newRows: ICol[] = [];
     for (let i = 0; i < rowsLength.value; i++) {
@@ -18,6 +21,6 @@ export const useColsStore = defineStore("cols", () => {
 
   return {
     generateNewCols,
-    cols
-  }
+    cols,
+  };
 });

@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import {useColsStore} from "~/stores/useColsStore";
-const colsStore = useColsStore()
-
+import { useColsStore } from "~/stores/useColsStore";
+const colsStore = useColsStore();
 </script>
 
 <template>
   <div class="body-container">
-    <common-col :col="col" v-for="col in colsStore.cols" :key="col"/>
+    <common-col :col="col" v-for="col in colsStore.cols" :key="col" />
   </div>
 </template>
 <style lang="scss" scoped>
@@ -17,4 +16,3 @@ const colsStore = useColsStore()
   height: 100vh;
 }
 </style>
-
