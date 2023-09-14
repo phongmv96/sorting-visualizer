@@ -1,7 +1,7 @@
 export enum STATUS {
-  SWAP = "swap",
-  PROCESS = "process",
-  DEFAULT = "default",
+  SWAP = "red",
+  PROCESS = "green",
+  DEFAULT = "rgba(245, 124, 0)",
 }
 
 export interface ICol {

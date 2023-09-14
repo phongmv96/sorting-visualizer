@@ -1,4 +1,4 @@
-import { ICol, STATUS } from "~/types/col";
+import {ICol, STATUS} from "~/types/col";
 
 export const useBubbleSort = (cols: ICol[]) => {
   let temp: ICol = {
@@ -6,16 +6,24 @@ export const useBubbleSort = (cols: ICol[]) => {
     status: STATUS.DEFAULT,
   };
 
-  for (let i = 0; i < cols.length - 1; i++) {
+  let speed = 0
 
-    for (let j = 0; j < cols.length - i - 1; j++) {
-      const currentValue = cols[j];
-      const nextValue = cols[j + 1];
-      if (currentValue.height > nextValue.height) {
-        temp = cols[j];
-        cols[j] = cols[j + 1];
-        cols[j + 1] = temp;
+  for (let i = 0; i < cols.length - 1; i++) {
+    setTimeout(() => {
+      for (let j = 0; j < cols.length - i - 1; j++) {
+        speed++
+        setTimeout(() => {
+          const currentValue = cols[j];
+          const nextValue = cols[j + 1];
+          currentValue.status = STATUS.PROCESS
+          nextValue.status = STATUS.PROCESS
+          if (currentValue.height > nextValue.height) {
+            temp = cols[j];
+            cols[j] = cols[j + 1];
+            cols[j + 1] = temp;
+          }
+        }, speed * 30)
       }
-    }
+    }, i * 20)
   }
 };

@@ -7,7 +7,7 @@ defineProps<{
 </script>
 
 <template>
-  <div class="col" :style="{ height: col?.height + 'px' }"></div>
+  <div class="col" :style="{ height: col?.height + 'px', backgroundColor: `${col.status}` }"></div>
 </template>
 
 <style scoped lang="scss">
