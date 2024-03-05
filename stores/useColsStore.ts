@@ -5,10 +5,10 @@ import { SORT_TYPE } from "~/types/sort";
 
 export const useColsStore = defineStore("cols", () => {
   const cols = ref<ICol[]>([]);
-  const rowsLength = ref<number>(40);
+  const colLength = ref<number>(40);
   const generateNewCols = () => {
     const newRows: ICol[] = [];
-    for (let i = 0; i < rowsLength.value; i++) {
+    for (let i = 0; i < colLength.value; i++) {
       const rndInt = Math.floor(Math.random() * 250) + 50;
       const newRow: ICol = {
         status: STATUS.DEFAULT,
@@ -22,5 +22,6 @@ export const useColsStore = defineStore("cols", () => {
   return {
     generateNewCols,
     cols,
+    colLength,
   };
 });
